@@ -18,11 +18,11 @@ public class MarkdownParse {
             
             
             int closeParen = markdown.indexOf(")", openParen); 
-            toReturn.add(markdown.substring(openParen + 1, closeParen));
+            
             if (openBracket == -1 || openParen == -1 || closeParen == -1 || closeBracket == -1){
                 currentIndex = markdown.length(); 
             } else {
-             
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
                 currentIndex = closeParen + 1;
             }
             
