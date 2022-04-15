@@ -1,5 +1,6 @@
 //https://howtodoinjava.com/java/io/java-read-file-to-string-examples/
 
+//make sure image's aren't counted as links
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +14,7 @@ public class MarkdownParse {
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
             int openBracket = markdown.indexOf("[", currentIndex);
+
             int closeBracket = markdown.indexOf("]", openBracket);
             int openParen = markdown.indexOf("(", closeBracket); 
             
@@ -20,9 +22,13 @@ public class MarkdownParse {
             int closeParen = markdown.indexOf(")", openParen); 
 
             
+            boolean isImage = false; 
+            if (openBracket > 0 && markdown.substring(openBracket-1, openBracket).equals("!")){
+                isImage = true; 
+
+            }
             
-            
-            if (openBracket == -1 || openParen == -1 || closeParen == -1 || closeBracket == -1){
+            if (!isImage && (openBracket == -1 || openParen == -1 || closeParen == -1 || closeBracket == -1)){
                 currentIndex = markdown.length(); 
             } else {
                 toReturn.add(markdown.substring(openParen + 1, closeParen));
