@@ -28,8 +28,10 @@ public class MarkdownParse {
 
             }
             
-            if (!isImage && (openBracket == -1 || openParen == -1 || closeParen == -1 || closeBracket == -1)){
+            if ((openBracket == -1 || openParen == -1 || closeParen == -1 || closeBracket == -1)){
                 currentIndex = markdown.length(); 
+            } else if (isImage) {
+                currentIndex = closeParen + 1;
             } else {
                 toReturn.add(markdown.substring(openParen + 1, closeParen));
                 currentIndex = closeParen + 1;
